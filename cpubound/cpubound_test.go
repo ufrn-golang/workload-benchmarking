@@ -31,16 +31,6 @@ func TestMergeSortConcurrent(t *testing.T) {
 	fmt.Println(sorted)
 }
 
-func TestMultipleSumSequential(t *testing.T) {
-	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	fmt.Println(multipleSumSequential(numbers))
-}
-
-func TestMultipleSumConcurrent(t *testing.T) {
-	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	fmt.Println(multipleSumConcurrent(numbers))
-}
-
 
 // Benchmarking functions
 func BenchmarkMergeSortSequential(b *testing.B) {

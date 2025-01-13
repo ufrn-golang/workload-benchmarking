@@ -1,7 +1,6 @@
 package cpubound
 
 import (
-	"runtime"
 	"sync"
 )
 
@@ -66,48 +65,4 @@ func merge(first, second []int) []int {
 		seq = append(seq, second[j])
 	}
 	return seq
-}
-
-
-// Sequential version of adding numbers to each other
-func multipleSumSequential(numbers[] int) int64 {
-	var sum int64 = 0
-	for _, n := range numbers {
-		sum += int64(n)
-	}
-	return sum
-}
-
-// Concurrent version of adding numbers to each other
-func multipleSumConcurrent(numbers []int) int64 {
-	goroutines := runtime.NumCPU()
-	slice := len(numbers) / goroutines
-	var sum int64 = 0
-	var mutex sync.Mutex
-
-	var waitGroup sync.WaitGroup
-	waitGroup.Add(goroutines)
-
-	for i := 0; i < goroutines; i++ {
-		go func(g int) {
-			start := g * slice
-			end := start + slice
-			if g == goroutines-1 {
-				end = len(numbers)
-			}
-
-			var part int
-			for _, n := range numbers[start:end] {
-				part += n
-			}
-			
-			mutex.Lock()
-			sum = sum + int64(part)
-			mutex.Unlock()
-			waitGroup.Done()
-		}(i)
-	}
-
-	waitGroup.Wait()
-	return sum
 }
