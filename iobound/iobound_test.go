@@ -2,11 +2,10 @@ package iobound
 
 import "testing"
 
-var urls = make([]string, 10)
-func init() {
-	for i := range urls {
-    	urls[i] = "https://www.google.com"
-    }
+var urls = []string{
+	"http://www.example.com",
+	"http://example.org",
+	"http://www.example.net",
 }
 
 func BenchmarkGetURLSequential(b *testing.B) {
