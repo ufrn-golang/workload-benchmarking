@@ -11,7 +11,7 @@ func generateRandomNumbers(n int) []int {
 	numbers := make([]int, n)
 	seed := rand.NewSource(time.Now().UnixNano())
 	rand := rand.New(seed)
-	
+
 	for i := 0; i < n; i++ {
 		numbers[i] = rand.Intn(n)
 	}
@@ -21,22 +21,22 @@ func generateRandomNumbers(n int) []int {
 // Simple unit test functions
 func TestMergeSortSequential(t *testing.T) {
 	unsorted := []int{10, 6, 2, 1, 5, 8, 3, 4, 7, 9}
-    sorted := mergeSortSequential(unsorted)
+	sorted := mergeSortSequential(unsorted)
 	fmt.Println(sorted)
 }
 
 func TestMergeSortConcurrent(t *testing.T) {
 	unsorted := []int{10, 6, 2, 1, 5, 8, 3, 4, 7, 9}
-    sorted := mergeSortConcurrent(unsorted)
+	sorted := mergeSortConcurrent(unsorted)
 	fmt.Println(sorted)
+	fmt.Printf("Goroutines created: %d\n", goroutines)
 }
-
 
 // Benchmarking functions
 func BenchmarkMergeSortSequential(b *testing.B) {
-	numbers := generateRandomNumbers(1<<20)
+	numbers := generateRandomNumbers(1 << 20)
 	b.StartTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		mergeSortSequential(numbers)
 	}
 	b.StopTimer()
@@ -44,9 +44,9 @@ func BenchmarkMergeSortSequential(b *testing.B) {
 }
 
 func BenchmarkMergeSortConcurrent(b *testing.B) {
-	numbers := generateRandomNumbers(1<<20)
+	numbers := generateRandomNumbers(1 << 20)
 	b.StartTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		mergeSortConcurrent(numbers)
 	}
 	b.StopTimer()

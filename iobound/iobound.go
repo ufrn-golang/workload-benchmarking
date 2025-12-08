@@ -28,7 +28,7 @@ func getURLConcurrent(urls []string) {
 	}
 	close(ch)
 
-	for i := 0; i < goroutines; i++ {
+	for range goroutines {
 		go func() {
 			for u := range ch {
 				if _, err := http.Get(u); err != nil {

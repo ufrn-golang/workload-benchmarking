@@ -10,18 +10,18 @@ var urls = []string{
 
 func BenchmarkGetURLSequential(b *testing.B) {
 	b.StartTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		getURLSequential(urls)
 	}
 	b.StopTimer()
-	b.ReportMetric(b.Elapsed().Seconds() / float64(b.N), "s/op") 
+	b.ReportMetric(b.Elapsed().Seconds()/float64(b.N), "s/op")
 }
 
 func BenchmarkGetURLConcurrent(b *testing.B) {
 	b.StartTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		getURLConcurrent(urls)
 	}
 	b.StopTimer()
-	b.ReportMetric(b.Elapsed().Seconds() / float64(b.N), "s/op") 
+	b.ReportMetric(b.Elapsed().Seconds()/float64(b.N), "s/op")
 }

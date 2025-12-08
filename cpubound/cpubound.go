@@ -4,6 +4,8 @@ import (
 	"sync"
 )
 
+var goroutines = 1
+
 // Sequential version of the merge sort algorithm
 func mergeSortSequential(items []int) []int {
 	if len(items) < 2 {
@@ -28,6 +30,7 @@ func mergeSortConcurrent(items []int) []int {
 
 	var waitGroup sync.WaitGroup
 	waitGroup.Add(2)
+	goroutines += 2
 
 	go func() {
 		defer waitGroup.Done()
